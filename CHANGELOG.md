@@ -3,6 +3,12 @@
 All notable changes to `stemau_odoo_stock` will be documented in this file.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [19.0.1.0.1] - 2026-03-06
+
+### Fixed
+- `odoo.sh.yml`: rimosso `install_modules` (chiave non valida per Odoo.sh, veniva ignorata) e `/odoo/addons` (path inesistente sulla piattaforma — Odoo.sh aggiunge autonomamente i path core)
+- `__manifest__.py`: `application` portato a `True` so che il modulo sia visibile nella pagina Applicazioni di Odoo senza dover rimuovere il filtro "Apps"
+
 ## [19.0.1.0.0] - 2026-03-06
 
 ### Added
