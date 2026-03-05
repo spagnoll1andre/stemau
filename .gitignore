@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.tox/
+.venv/
+venv/
+env/
+.env
+
+# Odoo
+*.pyc
+/filestore/
+/sessions/
+*.log
+.installed.cfg
+*.cfg.bak
+
+# Docker
+docker/volumes/
+docker/data/
+docker/addons_data/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Secrets
+*.secret
+.env.local
