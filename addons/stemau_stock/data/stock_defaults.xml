@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Product category: Legname -->
+    <record id="product_category_legname" model="product.category">
+        <field name="name">Legname</field>
+        <field name="parent_id" ref="product.product_category_all"/>
+    </record>
+
+    <!-- Stock location: Area Carico Stemau (child of WH/Input) -->
+    <record id="stock_location_area_carico" model="stock.location">
+        <field name="name">Area Carico Stemau</field>
+        <field name="usage">internal</field>
+        <field name="location_id" ref="stock.stock_location_locations"/>
+    </record>
+</odoo>

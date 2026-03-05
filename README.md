@@ -27,6 +27,14 @@ Stemau Inventory (Odoo 19 Community)
 - I test devono passare integralmente prima che il build sia considerato verde. Un build rosso blocca il deploy.
 - I moduli installati al momento del build sono: `stock`, `stemau_stock` (vedi `odoo.sh.yml`).
 
+## Definition of Done
+
+Un task è considerato **Done** solo se tutte le seguenti condizioni sono soddisfatte:
+
+- [ ] Build Development su Odoo.sh è **verde** (tutti i test passano)
+- [ ] Nessun traceback nei log di Odoo (né in installazione né a runtime)
+- [ ] Test locali superati (`./scripts/test_local.sh` exit 0)
+
 ## Quick Start
 
 ```bash
