@@ -69,7 +69,13 @@ else
           ERRORS=$((ERRORS + 1))
         fi
       else
-        if python3 -c "import xml.etree.ElementTree as ET; ET.parse('$file')" 2>&1; then
+        # On Windows/Git Bash, convert POSIX path to native before passing to Python
+        if command -v cygpath &>/dev/null; then
+          native_file="$(cygpath -w "$file")"
+        else
+          native_file="$file"
+        fi
+        if python3 -c "import xml.etree.ElementTree as ET; ET.parse(r'${native_file}')" 2>&1; then
           echo "  OK  $file"
         else
           echo "  FAIL  $file"

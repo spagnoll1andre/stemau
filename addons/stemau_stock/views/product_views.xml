@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit product.template form view — add Stemau tab -->
+    <record id="product_template_form_stemau" model="ir.ui.view">
+        <field name="name">product.template.form.stemau</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Stemau" name="stemau_tab">
+                    <group string="Wood Properties">
+                        <field name="x_wood_species"/>
+                        <field name="x_thickness_mm"/>
+                        <field name="x_moisture_pct"/>
+                        <field name="x_fsc"/>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>
