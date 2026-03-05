@@ -15,6 +15,18 @@ Stemau Inventory (Odoo 19 Community)
     └── test_local.sh
 ```
 
+## Odoo.sh Policy
+
+| Item | Value |
+|------|-------|
+| Branch principale | `main` |
+| Tipo branch (Odoo.sh) | **Development** |
+| Esito build | **Build Verde = Successo** |
+
+- Il branch `main` è configurato come **Development** in Odoo.sh: ad ogni push vengono eseguiti automaticamente i test dei moduli dichiarati in `odoo.sh.yml`.
+- I test devono passare integralmente prima che il build sia considerato verde. Un build rosso blocca il deploy.
+- I moduli installati al momento del build sono: `stock`, `stemau_stock` (vedi `odoo.sh.yml`).
+
 ## Quick Start
 
 ```bash
