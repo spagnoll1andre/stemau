@@ -1,1 +1,7 @@
 version: "19.0"
+addons_path:
+  - .
+  - /odoo/addons
+install_modules:
+  - stock
+  - stemau_stock
