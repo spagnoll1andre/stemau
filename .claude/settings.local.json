@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "Bash(chmod +x:*)",
-      "Bash(bash:*)"
+      "Bash(bash:*)",
+      "WebSearch",
+      "WebFetch(domain:www.odoo.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(cp:*)"
     ]
   }
 }

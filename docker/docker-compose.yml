@@ -25,7 +25,7 @@ services:
       - "8072:8072"
     volumes:
       - odoo_data:/var/lib/odoo
-      - ../addons:/mnt/extra-addons
+      - ../stemau_stock:/mnt/extra-addons/stemau_stock
       - ./odoo.conf:/etc/odoo/odoo.conf
     environment:
       HOST: db

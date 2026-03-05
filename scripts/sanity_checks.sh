@@ -3,17 +3,15 @@
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-ADDONS_DIR="$REPO_ROOT/addons"
 ERRORS=0
 
 echo "=== Sanity Checks ==="
-echo "Repo root : $REPO_ROOT"
-echo "Addons dir: $ADDONS_DIR"
+echo "Repo root: $REPO_ROOT"
 echo ""
 
 # ── Structure checks ──────────────────────────────────────────────────────────
 echo "[1/3] Checking required directories..."
-for dir in addons docker scripts; do
+for dir in docker scripts; do
   if [ -d "$REPO_ROOT/$dir" ]; then
     echo "  OK  $dir/"
   else
@@ -22,15 +20,29 @@ for dir in addons docker scripts; do
   fi
 done
 
+# Verify at least one Odoo module exists in the repo root
+MODULES=$(find "$REPO_ROOT" -maxdepth 2 -name "__manifest__.py" 2>/dev/null || true)
+if [ -n "$MODULES" ]; then
+  while IFS= read -r manifest; do
+    echo "  OK  module: $(dirname "$manifest" | sed "s|$REPO_ROOT/||")"
+  done <<< "$MODULES"
+else
+  echo "  FAIL  No Odoo modules found (no __manifest__.py)"
+  ERRORS=$((ERRORS + 1))
+fi
+
 # ── Python syntax ─────────────────────────────────────────────────────────────
 echo ""
 echo "[2/3] Checking Python syntax..."
 if ! command -v python3 &>/dev/null; then
   echo "  SKIP  python3 not found in PATH"
 else
-  PY_FILES=$(find "$ADDONS_DIR" -name "*.py" 2>/dev/null || true)
+  PY_FILES=$(find "$REPO_ROOT" -name "*.py" \
+    -not -path "*/.git/*" \
+    -not -path "*/docker/*" \
+    2>/dev/null || true)
   if [ -z "$PY_FILES" ]; then
-    echo "  SKIP  No .py files found in addons/"
+    echo "  SKIP  No .py files found"
   else
     while IFS= read -r file; do
       if python3 -m py_compile "$file" 2>&1; then
@@ -56,9 +68,12 @@ fi
 if [ -z "$XML_CHECKER" ]; then
   echo "  SKIP  neither xmllint nor python3 found"
 else
-  XML_FILES=$(find "$ADDONS_DIR" -name "*.xml" 2>/dev/null || true)
+  XML_FILES=$(find "$REPO_ROOT" -name "*.xml" \
+    -not -path "*/.git/*" \
+    -not -path "*/docker/*" \
+    2>/dev/null || true)
   if [ -z "$XML_FILES" ]; then
-    echo "  SKIP  No .xml files found in addons/"
+    echo "  SKIP  No .xml files found"
   else
     while IFS= read -r file; do
       if [ "$XML_CHECKER" = "xmllint" ]; then
